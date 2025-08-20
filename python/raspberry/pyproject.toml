@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dfrobot_environmental_sensor"
+version = "1.0.0"
+description = "A library for the DFRobot SEN0500/SEN0501 environmental sensor."
+readme = "README.md"
+authors = [
+    { name = "tangjie123", email = "jie.tang@dfrobot.com" }
+]
+maintainers = [
+    { name = "kallegrens", email = "karl.lundgren@ri.se" }
+]
+license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Atmospheric Science",
+    "Topic :: Software Development :: Embedded Systems",
+]
+
+dependencies = [
+    "modbus-tk>=1.0,<2.0",
+]
+
+[tool.setuptools.packages]
+find = {}
