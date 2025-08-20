@@ -11,7 +11,7 @@
 """
 
 import serial
-import smbus
+import smbus3
 
 # import RPi.GPIO as GPIO
 
@@ -42,7 +42,7 @@ class DFRobot_Environmental_Sensor:
 
     def __init__(self, bus, baud=9600):
         if bus != 0:
-            self.i2cbus = smbus.SMBus(bus)
+            self.i2cbus = smbus3.SMBus(bus)
             self._uart_i2c = I2C_MODE
 
         else:

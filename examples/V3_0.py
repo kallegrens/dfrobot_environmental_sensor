@@ -10,35 +10,34 @@
 @url         https://github.com/DFRobot/DFRobot_EnvironmentalSensor
 """
 
-import sys
 import time
 
-# import RPi.GPIO as GPIO
-sys.path.append("../")
-from DFRobot_Environmental_Sensor import *
+from dfrobot_environmental_sensor import *
 
 """
-  Select communication mode
-  ctype=1：UART
-  ctype=0：IIC
+Select communication mode
+ctype=1：UART
+ctype=0：IIC
 """
 ctype = 0
 
 ADDRESS = 0x22
 I2C_1 = 0x01
+BAUD_RATE = 9600
+
 if ctype == 0:
     SEN050X = DFRobot_Environmental_Sensor_I2C(I2C_1, ADDRESS)
 else:
-    SEN050X = DFRobot_Environmental_Sensor_UART(9600, ADDRESS)
+    SEN050X = DFRobot_Environmental_Sensor_UART(BAUD_RATE, ADDRESS)
 
 """
-  Atmospheric pressure unit select
+Atmospheric pressure unit select
 """
 HPA = 0x01
 KPA = 0x02
 
 """
-  Temperature unit select
+Temperature unit select
 """
 TEMP_C = 0x03
 TEMP_F = 0x04
