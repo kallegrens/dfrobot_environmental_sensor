@@ -1,117 +1,123 @@
-DFRobot_EnvironmentalSensor
-===========================
+# 🌍 DFRobot Environmental Sensor (Python-only Library)
 
-- [中文版](./README_CN.md)
+Python library for the multifunctional **DFRobot Environmental Sensor (SEN0500/SEN0501)**.  
+This sensor integrates **temperature 🌡️, humidity 💧, UV index ☀️, light intensity 💡, pressure 🌪️, and altitude 🏔️** into one module.
 
-The multifunctional environmental sensor(SEN0500/SEN0501) integrates the UV, illumination, atmospheric pressure and temperature and humidity detection functions into one. It features Gravity and Breakout interfaces, and supports UART and I2C data communication, which can be selected by the onboard switch. <br/>
-This Arduino Library developed by DFRobot is specially designed for DFRobot Environmental sensor. Users can use the library to drive their sensor to obtain relevant environmental data conbining with an Arduino mainboard. 
+It supports both **Gravity** and **Breakout** interfaces and communicates over **I²C** or **UART**.
 
-![产品效果图](../../resources/images/SEN0501.png)
-![产品效果图](../../resources/images/SEN0500.png)
+👉 This is a **Python 3.8+ only** fork of the original DFRobot Arduino library, adapted for Raspberry Pi.
 
-## Product Link (https://www.dfrobot.com)
+---
 
-    SKU：SEN0500/SEN0501
+## 📦 Installation
 
-## Table of Contents
-
-  * [summary](#summary)
-  * [installation](#installation)
-  * [methods](#methods)
-  * [compatibility](#compatibility)
-  * [history](#history)
-  * [credits](#credits)
-
-## Summary
-
-This multifunctional environmental sensor library can help obtain information like temperature, humidity, pressure, UV intensity, natural sunlight intensity and altitude.
-The module also offers Gravity and breakout version for easy use.
-
-## Installation
-
-Download this library to Raspberry Pi before use, then open the routine folder. Type python demox.py on the command line to execute a routine demox.py. For example, to execute the control_led.py routine, you need to enter:
-
-```python
-python control_led.py
+Simply install with `pip`
+```bash
+pip install git+https://github.com/kallegrens/dfrobot_environmental_sensor.git@master
 ```
 
-## Methods
+⚡️ Package will soon be available on PyPi!
 
-```python
-  '''!
-    @brief Init SEN0500/SEN0501 sensor
-    @brief Init SEN0500/SEN0501 sensor
-    @return Return init status
-    @retval 0  Succeed
-    @retval -1 Failed
-  '''
-  def begin(self):
+## 🚀 Usage
 
-  '''!
-    @brief Get SEN0500/SEN0501 temperature data
-    @param units Temperature data unit select
-    @n     TEMP_C ℃
-    @n     TEMP_F ℉ 
-    @return Return the obtained temperature data
-  '''
-  def get_temperature(self,unist):
+### Run an example from the examples directory
 
-  '''!
-    @brief Get SEN0500/SEN0501 humidity data 
-    @return Return the obtained humidity data
-  '''
-  def get_humidity(self):
-
-  '''!
-    @brief Get SEN0500/SEN0501 UV intensity index data 
-    @param soc UV sensor
-    @return Return the obtained UV intensity index data
-  '''
-  def get_ultraviolet_intensity(self,soc):
-
-  '''!
-    @brief Get SEN0500/SEN0501 luminous intensity data 
-    @return Return the obtained luminous intensity data
-  '''
-  def get_luminousintensity(self):
-
-  '''!
-    @brief Get SEN0500/SEN0501 atmosphere pressure data 
-    @param units Atmosphere pressure data unit select
-    @n            HPA Hectopascal
-    @n            KPA Kilopascal
-    @return Return the obtained atmosphere pressure data
-  '''
-  def get_atmosphere_pressure(self, units):
-
-  '''!
-    @brief Get SEN0500/SEN0501 altitude data 
-    @return Return the obtained altitude data
-  '''
-  def get_elevation(self):
+```bash
+python3 examples/control_led.py
 ```
 
-## Compatibility
+### Basic code example
 
-* RaspberryPi Version
+```python
+from dfrobot_environmental_sensor import DFRobot_Environmental_Sensor
 
-| Board        | Work Well | Work Wrong | Untested | Remarks |
-| ------------ | :-------: | :--------: | :------: | ------- |
-| Raspberry Pi2 |           |            |    √     |         |
-| Raspberry Pi3 |           |            |    √     |         |
-| Raspberry Pi4 |       √   |            |          |         |
+sensor = DFRobot_Environmental_Sensor()
+sensor.begin()
 
-* Python Version
+print("Temperature:", sensor.get_temperature("C"), "°C")
+print("Humidity:", sensor.get_humidity(), "%")
+print("UV Index:", sensor.get_ultraviolet_intensity())
+print("Light:", sensor.get_luminousintensity(), "lx")
+print("Pressure:", sensor.get_atmosphere_pressure("hPa"), "hPa")
+print("Altitude:", sensor.get_elevation(), "m")
+```
 
-| Python  | Work Well | Work Wrong | Untested | Remarks |
-| ------- | :-------: | :--------: | :------: | ------- |
-| Python2 |     √     |            |          |         |
-| Python3 |     √     |            |          |         |
+## 🛠️ Methods
 
-## History
+```python
+def begin(self) -> int:
+    """
+    Initialize the SEN0500/SEN0501 sensor.
+    Returns:
+        int: 0 if successful, -1 if failed.
+    """
 
-- 2021-08-31 - Version 1.0.0 released.
+def get_temperature(self, units: str = "C") -> float:
+    """
+    Get temperature data.
+    Args:
+        units (str): "C" for Celsius, "F" for Fahrenheit.
+    Returns:
+        float: Temperature value.
+    """
 
-## Credits
+def get_humidity(self) -> float:
+    """Return relative humidity (%)"""
 
-Written by TangJie(jie.tang@dfrobot.com), 2021. (Welcome to our [website](https://www.dfrobot.com/))
+def get_ultraviolet_intensity(self) -> float:
+    """Return UV intensity index"""
+
+def get_luminousintensity(self) -> float:
+    """Return luminous intensity (lux)"""
+
+def get_atmosphere_pressure(self, units: str = "hPa") -> float:
+    """
+    Get atmospheric pressure.
+    Args:
+        units (str): "hPa" (default) or "kPa".
+    Returns:
+        float: Pressure value.
+    """
+
+def get_elevation(self) -> float:
+    """Return altitude (meters)"""
+```
+
+## ✅ Compatibility
+
+- Raspberry Pi (tested on Raspberry Pi 5)
+- Python 3.8+ only
+
+## 🔗 Product Links
+
+<p align="center">
+  <div style="display:inline-block; text-align:center; margin: 0 20px;">
+    <img src="./images/SEN0500.png" alt="SEN0500" width="300"/><br/>
+    🌐 <a href="https://www.dfrobot.com/product-2522.html">SEN0500 – Fermion</a>
+  </div>
+  <div style="display:inline-block; text-align:center; margin: 0 20px;">
+    <img src="./images/SEN0501.png" alt="SEN0501" width="300"/><br/>
+    🌐 <a href="https://www.dfrobot.com/product-2528.html">SEN0501 – Gravity</a>
+  </div>
+</p>
+
+## 📖 Changelog
+
+The full changelog is available in [CHANGELOG.md](./CHANGELOG.md).
+
+### Latest Release
+
+- **[2.0.0 – 2025-08-20]** 💥 Python-only fork
+  - ✅ Python 3.8+ support with `smbus3`
+  - ✅ Modernized README and examples
+  - ❌ Dropped Arduino and Python 2.x support
+
+### Previous Release (DFRobot upstream)
+
+- **[1.1.0 – 2024-12-18]** ⚡️ Code updates from DFRobot
+- **[1.0.0 – 2021-12-20]** ✨ Initial release by DFRobot (Arduino-compatible)
+
+## 🙌 Credits
+
+- Originally written by [tangjie133](https://github.com/tangjie133) (DFRobot), 2021
+- Python 3.8+ fork maintained by [kallegrens](https://github.com/kallegrens), 2025
