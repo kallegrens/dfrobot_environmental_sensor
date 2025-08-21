@@ -3,19 +3,25 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "dfrobot_environmental_sensor"
-version = "1.0.0"
-description = "A library for the DFRobot SEN0500/SEN0501 environmental sensor."
+name = "dfrobot-environmental-sensor"
+version = "2.0.0"
+description = "Python 3.8+ library for the DFRobot SEN0500/SEN0501 environmental sensor on Raspberry Pi."
 readme = "README.md"
 authors = [
-    { name = "tangjie123", email = "jie.tang@dfrobot.com" }
+    { name = "DFRobot (original library)", email = "jie.tang@dfrobot.com" }
 ]
 maintainers = [
-    { name = "kallegrens", email = "karl.lundgren@ri.se" }
+    { name = "Karl Lundgren", email = "karl.lundgren@ri.se" }
 ]
 license = { file = "LICENSE" }
+requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering :: Atmospheric Science",
@@ -29,3 +35,7 @@ dependencies = [
 
 [tool.setuptools.packages]
 find = {}
+
+[project.urls]
+Homepage = "https://github.com/kallegrens/dfrobot_environmental_sensor"
+Issues = "https://github.com/kallegrens/dfrobot_environmental_sensor/issues"
