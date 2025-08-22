@@ -6,8 +6,8 @@ from dfrobot_environmental_sensor import EnvironmentalSensor, Units, UVSensor
 
 I2C_BUS = 1          # Raspberry Pi I²C is usually bus 1
 I2C_ADDR = 0x22
-UV_VARIANT = UVSensor.S12DS   # or UVSensor.LTR390UV, depending on your board
-
+# UV_VARIANT = UVSensor.S12DS   # or UVSensor.LTR390UV, depending on your board
+UV_VARIANT = UVSensor.LTR390UV
 def setup():
     global sensor
     sensor = EnvironmentalSensor.i2c(I2C_BUS, I2C_ADDR, uv_sensor=UV_VARIANT)
