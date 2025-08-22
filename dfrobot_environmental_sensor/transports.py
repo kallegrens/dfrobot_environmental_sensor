@@ -3,11 +3,54 @@ from typing import Protocol
 
 
 class Transport(Protocol):
-    def read_block(self, reg: int, length: int) -> bytes: ...
+    """Abstract communication transport for SEN050X sensors.
+
+    A transport is responsible for reading raw bytes from the device,
+    regardless of whether the physical connection is I²C, UART/Modbus,
+    or another medium.
+
+    All concrete transports must implement :meth:`read_block`.
+    """
+    def read_block(self, reg: int, length: int) -> bytes:
+        """Read a contiguous block of bytes starting at a device register.
+
+        Parameters
+        ----------
+        reg : int
+            Starting register address (byte address).
+        length : int
+            Number of bytes to read.
+
+        Returns
+        -------
+        bytes
+            Raw data read from the device.
+
+        Raises
+        ------
+        IOError
+            If the transport layer encounters a communication error.
+        """
+        ...
 
 
 class I2CTransport:
-    """I²C transport using smbus3."""
+    """I²C transport using the `smbus3` library.
+
+    This transport communicates with the sensor over the I²C bus using
+    standard SMBus block reads.
+
+    Parameters
+    ----------
+    bus : int
+        I²C bus index (e.g., 1 on Raspberry Pi).
+    addr : int
+        I²C device address.
+
+    Notes
+    -----
+    Requires the ``smbus3`` package to be installed.
+    """
 
     def __init__(self, bus: int, addr: int):
         import smbus3
@@ -16,6 +59,25 @@ class I2CTransport:
         self._addr = addr
 
     def read_block(self, reg: int, length: int) -> bytes:
+        """Read a block of data from the device over I²C.
+
+        Parameters
+        ----------
+        reg : int
+            Register address to read from.
+        length : int
+            Number of bytes to read.
+
+        Returns
+        -------
+        bytes
+            Raw data read from the device.
+
+        Raises
+        ------
+        IOError
+            If the underlying I²C read fails.
+        """
         try:
             data = self._bus.read_i2c_block_data(self._addr, reg, length)
             return bytes(data)
@@ -24,7 +86,23 @@ class I2CTransport:
 
 
 class UARTTransport:
-    """UART/Modbus RTU transport. Optional dependency: pyserial & modbus_tk."""
+    """UART/Modbus RTU transport for SEN050X sensors.
+
+    Communicates with the device over Modbus RTU via a serial port.
+
+    Parameters
+    ----------
+    port : str
+        Serial port path (e.g., ``/dev/ttyAMA0`` or ``COM3``).
+    baudrate : int
+        Baud rate for UART communication.
+    addr : int
+        Modbus slave address of the device.
+
+    Notes
+    -----
+    Requires both ``pyserial`` and ``modbus_tk`` to be installed.
+    """
 
     def __init__(self, port: str, baudrate: int, addr: int):
         try:
@@ -44,6 +122,26 @@ class UARTTransport:
         self._master.set_timeout(1.0)
 
     def read_block(self, reg: int, length: int) -> bytes:
+        """Read a block of data from the device over Modbus RTU.
+
+        Parameters
+        ----------
+        reg : int
+            Starting register address in bytes. Will be converted into a
+            Modbus 16-bit register index.
+        length : int
+            Number of bytes to read.
+
+        Returns
+        -------
+        bytes
+            Raw data read from the device.
+
+        Raises
+        ------
+        IOError
+            If the underlying Modbus read fails.
+        """
         # Modbus uses 16-bit registers; compute starting register and count
         count = (length + 1) // 2  # ceil(length/2) to be safe
         start = reg // 2
