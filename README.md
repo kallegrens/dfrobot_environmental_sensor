@@ -1,7 +1,7 @@
 # 🌍 DFRobot Environmental Sensor Library
 
 Python library for the multifunctional **DFRobot Environmental Sensor (SEN0500/SEN0501)**.  
-This sensor integrates **temperature 🌡️, humidity 💧, UV index ☀️, light intensity 💡, pressure 🌪️, and altitude 🏔️** into one module.
+This sensor integrates **temperature 🌡️, humidity 💧, UV index ☀️, light intensity 💡, atmospheric pressure 🌪️, and altitude 🏔️** into one module.
 
 It supports both **Gravity** and **Breakout** interfaces and communicates over **I²C** or **UART**.
 
@@ -21,67 +21,60 @@ pip install git+https://github.com/kallegrens/dfrobot_environmental_sensor.git@m
 
 ## 🚀 Usage
 
-### Run an example from the examples directory
+### 🐍 Pythonic API
 
-```bash
-python3 examples/print_all_measurements.py
-```
+The library also exposes a modern, Pythonic API for direct use.
+At the top level you’ll find:
 
-### Basic code example
+`EnvironmentalSensor` → the main driver class
 
+`Units` → supported measurement units (temperature & pressure)
+
+`UVSensor` → supported UV sensor variants
+
+#### Minimal example
 ```python
-from dfrobot_environmental_sensor import DFRobot_Environmental_Sensor
+from dfrobot_environmental_sensor import EnvironmentalSensor, Units, UVSensor
 
-sensor = DFRobot_Environmental_Sensor()
-sensor.begin()
+UV_VARIANT = UVSensor.LTR390UV  # or UVSensor.S12DS
+# Create an I²C instance on bus 1
+sensor = EnvironmentalSensor.i2c(bus=1, address=0x22, uv_sensor=UV_VARIANT)
 
-print("Temperature:", sensor.get_temperature("C"), "°C")
-print("Humidity:", sensor.get_humidity(), "%")
-print("UV Index:", sensor.get_ultraviolet_intensity())
-print("Light:", sensor.get_luminousintensity(), "lx")
-print("Pressure:", sensor.get_atmosphere_pressure("hPa"), "hPa")
-print("Altitude:", sensor.get_elevation(), "m")
+if sensor.is_present():
+    print("🌡️ Temperature:", sensor.read_temperature(Units.C), "°C")
+    print("🌡️ Temperature:", sensor.read_temperature(Units.F), "°F")
+    print("💧 Humidity:", sensor.read_humidity(), "%")
+    print("☀️ UV Irradiance:", sensor.read_uv_irradiance(), "mW/cm²")
+    print("💡 Light:", sensor.read_illuminance(), "lx")
+    print("🌪️ Pressure:", sensor.read_pressure(Units.HPA), "hPa")
+    print("🏔️ Altitude:", sensor.estimate_altitude(), "m")
+else:
+    print("❌ Sensor not detected.")
 ```
 
 ## 🛠️ Methods
 
 ```python
-def begin(self) -> int:
-    """
-    Initialize the SEN0500/SEN0501 sensor.
-    Returns:
-        int: 0 if successful, -1 if failed.
-    """
+def is_present(self) -> bool:
+    """Check if the sensor responds. Returns True if detected."""
 
-def get_temperature(self, units: str = "C") -> float:
-    """
-    Get temperature data.
-    Args:
-        units (str): "C" for Celsius, "F" for Fahrenheit.
-    Returns:
-        float: Temperature value.
-    """
+def read_temperature(self, units: Units = Units.C) -> float:
+    """Return ambient temperature in °C or °F."""
 
-def get_humidity(self) -> float:
+def read_humidity(self) -> float:
     """Return relative humidity (%)"""
 
-def get_ultraviolet_intensity(self) -> float:
-    """Return UV intensity index"""
+def read_uv_irradiance(self) -> float:
+    """Return UV irradiance (mW/cm²)."""
 
-def get_luminousintensity(self) -> float:
-    """Return luminous intensity (lux)"""
+def read_illuminance(self) -> float:
+    """Return ambient light level (lux)."""
 
-def get_atmosphere_pressure(self, units: str = "hPa") -> float:
-    """
-    Get atmospheric pressure.
-    Args:
-        units (str): "hPa" (default) or "kPa".
-    Returns:
-        float: Pressure value.
-    """
+def read_pressure(self, units: Units = Units.HPA) -> float:
+    """Return atmospheric pressure in hPa or kPa."""
 
-def get_elevation(self) -> float:
-    """Return altitude (meters)"""
+def estimate_altitude(self, sea_level_hpa: float = 1013.25) -> float:
+    """Estimate altitude (m) from current pressure."""
 ```
 
 ## ✅ Compatibility
