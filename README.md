@@ -19,9 +19,7 @@ pip install git+https://github.com/kallegrens/dfrobot_environmental_sensor.git@m
 
 ⚡️ Package will soon be available on PyPi!
 
-## 🚀 Usage
-
-### 🐍 Pythonic API
+## 🚀 Pythonic API usage
 
 The library also exposes a modern, Pythonic API for direct use.
 At the top level you’ll find:
@@ -32,7 +30,7 @@ At the top level you’ll find:
 
 `UVSensor` → supported UV sensor variants
 
-#### Minimal example
+#### 🐍 Minimal example
 ```python
 from dfrobot_environmental_sensor import EnvironmentalSensor, Units, UVSensor
 
