@@ -1,4 +1,4 @@
-# 🌍 DFRobot Environmental Sensor (Python-only Library)
+# 🌍 DFRobot Environmental Sensor Library
 
 Python library for the multifunctional **DFRobot Environmental Sensor (SEN0500/SEN0501)**.  
 This sensor integrates **temperature 🌡️, humidity 💧, UV index ☀️, light intensity 💡, pressure 🌪️, and altitude 🏔️** into one module.
@@ -91,16 +91,12 @@ def get_elevation(self) -> float:
 
 ## 🔗 Product Links
 
-<p align="center">
-  <div style="display:inline-block; text-align:center; margin: 0 20px;">
-    <img src="./images/SEN0500.png" alt="SEN0500" width="300"/><br/>
-    🌐 <a href="https://www.dfrobot.com/product-2522.html">SEN0500 – Fermion</a>
-  </div>
-  <div style="display:inline-block; text-align:center; margin: 0 20px;">
-    <img src="./images/SEN0501.png" alt="SEN0501" width="300"/><br/>
-    🌐 <a href="https://www.dfrobot.com/product-2528.html">SEN0501 – Gravity</a>
-  </div>
-</p>
+|  |  |
+|-------------------|-------------------|
+| <img src="./images/SEN0500.png" alt="SEN0500" width="250"/> | <img src="./images/SEN0501.png" alt="SEN0501" width="250"/> |
+| <p align="center">🌐 <a href="https://www.dfrobot.com/product-2522.html">SEN0500 – Fermion</a></p> | <p align="center">🌐 <a href="https://www.dfrobot.com/product-2528.html">SEN0501 – Gravity</a></p> |
+
+
 
 ## 📖 Changelog
 
