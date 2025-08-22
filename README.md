@@ -12,6 +12,7 @@ It supports both **Gravity** and **Breakout** interfaces and communicates over *
 ## 📦 Installation
 
 Simply install with `pip`
+
 ```bash
 pip install git+https://github.com/kallegrens/dfrobot_environmental_sensor.git@master
 ```
@@ -23,7 +24,7 @@ pip install git+https://github.com/kallegrens/dfrobot_environmental_sensor.git@m
 ### Run an example from the examples directory
 
 ```bash
-python3 examples/control_led.py
+python3 examples/print_all_measurements.py
 ```
 
 ### Basic code example

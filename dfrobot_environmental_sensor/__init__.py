@@ -12,18 +12,13 @@
 
 import serial
 import smbus3
-
-# import RPi.GPIO as GPIO
-
 import modbus_tk.defines as cst
 from modbus_tk import modbus_rtu
 
 I2C_MODE = 0x01
 UART_MODE = 0x02
-DEV_ADDRESS = 0x22
-
-DEVICE_VID = 0x3343
 DEVICE_ADDRESS = 0x22
+DEVICE_VID = 0x3343
 
 HPA = 0x01
 KPA = 0x02
@@ -73,7 +68,7 @@ class DFRobot_Environmental_Sensor:
         @retval 0  Succeed
         @retval -1 Failed
         """
-        if self._detect_device_address() != DEV_ADDRESS:
+        if self._detect_device_address() != DEVICE_ADDRESS:
             return False
         return True
 
