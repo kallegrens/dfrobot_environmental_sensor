@@ -44,10 +44,10 @@ keywords = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/kallegrens/dfrobot_environmental_sensor"
-Source = "https://github.com/kallegrens/dfrobot_environmental_sensor"
-Issues = "https://github.com/kallegrens/dfrobot_environmental_sensor/issues"
-Changelog = "https://github.com/kallegrens/dfrobot_environmental_sensor/blob/master/CHANGELOG.md"
+Homepage = "https://github.com/kallegrens/dfrobot-environmental-sensor"
+Source = "https://github.com/kallegrens/dfrobot-environmental-sensor"
+Issues = "https://github.com/kallegrens/dfrobot-environmental-sensor/issues"
+Changelog = "https://github.com/kallegrens/dfrobot-environmental-sensor/blob/master/CHANGELOG.md"
 
 [tool.setuptools.packages]
 find = {}
