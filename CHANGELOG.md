@@ -5,6 +5,18 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.1.1](https://github.com/kallegrens/dfrobot-environmental-sensor/compare/v2.1.0...v2.1.1) (2025-08-23)
+
+
+### Reverts
+
+* remove on: workflow_run release-please ([2415911](https://github.com/kallegrens/dfrobot-environmental-sensor/commit/2415911df892b3022ce972afbaef9ce052444a29))
+
+
+### Documentation
+
+* remove soon on PyPI-message ([f361976](https://github.com/kallegrens/dfrobot-environmental-sensor/commit/f361976def59e5c625a93be773dd9b3030f12e9a))
+
 ## [2.1.0](https://github.com/kallegrens/dfrobot-environmental-sensor/compare/v2.0.0...v2.1.0) (2025-08-23)
 
 ### Features
