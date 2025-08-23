@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"                 # looks at pyproject/requirements in repo root
+    schedule:
+      interval: "daily"           # or "daily"
+      time: "06:00"                # UTC
+    open-pull-requests-limit: 20
+
+    # Make PRs obvious
+    labels: ["dependencies"]
+    assignees: ["kallegrens"]      # change if you prefer reviewers instead
+
+    # Optional: keep patch+minor together but major separate
+    groups:
+      runtime-minor-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+      # majors will be separate PRs (no group)
+
+    # (Optional) ignore pre-releases
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch", "version-update:semver-minor", "version-update:semver-major"]
+        # remove the three lines above if you DO want pre-releases
+        # and instead add: allow: ["versions:semver"]
