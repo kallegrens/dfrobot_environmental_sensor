@@ -14,7 +14,7 @@ It supports both **Gravity** and **Breakout** interfaces and communicates over *
 Simply install with `pip`
 
 ```bash
-pip install git+https://github.com/kallegrens/dfrobot_environmental_sensor.git@master
+pip install dfrobot-environmental-sensor
 ```
 
 ⚡️ Package will soon be available on PyPi!
@@ -30,7 +30,8 @@ At the top level you’ll find:
 
 `UVSensor` → supported UV sensor variants
 
-#### 🐍 Minimal example
+### 🐍 Minimal example
+
 ```python
 from dfrobot_environmental_sensor import EnvironmentalSensor, Units, UVSensor
 
@@ -86,8 +87,6 @@ def estimate_altitude(self, sea_level_hpa: float = 1013.25) -> float:
 |-------------------|-------------------|
 | <img src="./images/SEN0500.png" alt="SEN0500" width="250"/> | <img src="./images/SEN0501.png" alt="SEN0501" width="250"/> |
 | <p align="center">🌐 <a href="https://www.dfrobot.com/product-2522.html">SEN0500 – Fermion</a></p> | <p align="center">🌐 <a href="https://www.dfrobot.com/product-2528.html">SEN0501 – Gravity</a></p> |
-
-
 
 ## 📖 Changelog
 

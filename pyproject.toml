@@ -7,35 +7,47 @@ name = "dfrobot-environmental-sensor"
 version = "2.0.0"
 description = "Python 3.8+ library for the DFRobot SEN0500/SEN0501 environmental sensor on Raspberry Pi."
 readme = "README.md"
+license = { file = "LICENSE" }
+
 authors = [
     { name = "DFRobot (original library)", email = "jie.tang@dfrobot.com" }
 ]
 maintainers = [
     { name = "Karl Lundgren", email = "karl.lundgren@ri.se" }
 ]
-license = { file = "LICENSE" }
+
 requires-python = ">=3.8"
+dependencies = [
+    "modbus-tk>=1.0,<2.0",
+    "smbus3>=0.5,<1.0",
+]
 classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering :: Atmospheric Science",
     "Topic :: Software Development :: Embedded Systems",
+    "Topic :: System :: Hardware"
 ]
-
-dependencies = [
-    "modbus-tk>=1.0,<2.0",
-    "smbus3>=0.5,<1.0",
+keywords = [
+    "DFRobot", "SEN0500", "SEN0501", "environmental", "sensor",
+    "I2C", "UART", "Raspberry Pi"
 ]
-
-[tool.setuptools.packages]
-find = {}
 
 [project.urls]
 Homepage = "https://github.com/kallegrens/dfrobot_environmental_sensor"
+Source = "https://github.com/kallegrens/dfrobot_environmental_sensor"
 Issues = "https://github.com/kallegrens/dfrobot_environmental_sensor/issues"
+Changelog = "https://github.com/kallegrens/dfrobot_environmental_sensor/blob/master/CHANGELOG.md"
+
+[tool.setuptools.packages]
+find = {}

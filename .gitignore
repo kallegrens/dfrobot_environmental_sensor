@@ -1,2 +1,4 @@
 __pycache__
 dfrobot_environmental_sensor.egg-info/
+.venv/
+dist/
