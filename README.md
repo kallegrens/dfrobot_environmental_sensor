@@ -17,8 +17,6 @@ Simply install with `pip`
 pip install dfrobot-environmental-sensor
 ```
 
-⚡️ Package will soon be available on PyPi!
-
 ## 🚀 Pythonic API usage
 
 The library also exposes a modern, Pythonic API for direct use.
