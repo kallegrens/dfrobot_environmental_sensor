@@ -1,6 +1,11 @@
 # 🌍 DFRobot Environmental Sensor Library
 
-Python library for the multifunctional **DFRobot Environmental Sensor (SEN0500/SEN0501)**.  
+![PyPI](https://img.shields.io/pypi/v/dfrobot-environmental-sensor)
+![Python Version](https://img.shields.io/pypi/pyversions/dfrobot-environmental-sensor)
+![License](https://img.shields.io/github/license/kallegrens/dfrobot-environmental-sensor)
+
+Python library for the multifunctional **DFRobot Environmental Sensor (SEN0500/SEN0501)**.
+
 This sensor integrates **temperature 🌡️, humidity 💧, UV index ☀️, light intensity 💡, atmospheric pressure 🌪️, and altitude 🏔️** into one module.
 
 It supports both **Gravity** and **Breakout** interfaces and communicates over **I²C** or **UART**.
