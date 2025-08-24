@@ -5,6 +5,21 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [2.1.2](https://github.com/kallegrens/dfrobot-environmental-sensor/compare/v2.1.1...v2.1.2) (2025-08-24)
+
+
+### Bug Fixes
+
+* validate input range in map_linear ([#8](https://github.com/kallegrens/dfrobot-environmental-sensor/issues/8)) ([cc04f84](https://github.com/kallegrens/dfrobot-environmental-sensor/commit/cc04f84472dcbcb56be0957088b608a2d77e3965))
+
+
+### Documentation
+
+* add badges to README ([85f5a0e](https://github.com/kallegrens/dfrobot-environmental-sensor/commit/85f5a0e56efeb5d0e05387151b65a696c25a39d3))
+* add callout highlights ([#11](https://github.com/kallegrens/dfrobot-environmental-sensor/issues/11)) ([c838a4e](https://github.com/kallegrens/dfrobot-environmental-sensor/commit/c838a4ea774f906341ab1081fb16970f508df5ba))
+* correct example script header ([#7](https://github.com/kallegrens/dfrobot-environmental-sensor/issues/7)) ([a450927](https://github.com/kallegrens/dfrobot-environmental-sensor/commit/a450927844e2b721f0748e734562a5994ba97644))
+* use standard conventional commits badge ([#10](https://github.com/kallegrens/dfrobot-environmental-sensor/issues/10)) ([b5e119e](https://github.com/kallegrens/dfrobot-environmental-sensor/commit/b5e119ea33cf9d8ff3cfda11a0d4692900c43c2e))
+
 ## [2.1.1](https://github.com/kallegrens/dfrobot-environmental-sensor/compare/v2.1.0...v2.1.1) (2025-08-23)
 
 
