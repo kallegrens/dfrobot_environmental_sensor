@@ -1,4 +1,4 @@
-# examples/print_all_measurements.py
+# examples/read_all.py
 # -*- coding: utf-8 -*-
 """
 Continuously print all measurements from the SEN0500/SEN0501 sensor
