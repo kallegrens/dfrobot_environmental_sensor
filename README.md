@@ -3,6 +3,7 @@
 ![PyPI](https://img.shields.io/pypi/v/dfrobot-environmental-sensor)
 ![Python Version](https://img.shields.io/pypi/pyversions/dfrobot-environmental-sensor)
 ![License](https://img.shields.io/github/license/kallegrens/dfrobot-environmental-sensor)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 Python library for the multifunctional **DFRobot Environmental Sensor (SEN0500/SEN0501)**.
 
