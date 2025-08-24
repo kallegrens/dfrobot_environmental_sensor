@@ -83,6 +83,9 @@ def map_linear(x: float, in_min: float, in_max: float, out_min: float, out_max: 
     ValueError
         If ``in_min == in_max``.
     """
+    if in_min == in_max:
+        raise ValueError("in_min and in_max must be different")
+
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 
