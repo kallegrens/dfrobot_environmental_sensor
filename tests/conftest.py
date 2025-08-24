@@ -6,6 +6,7 @@ implementation returning preset register values.  Tests can therefore
 exercise sensor logic without requiring real hardware or the ``smbus3`` or
 ``modbus-tk`` dependencies.
 """
+
 from dataclasses import dataclass
 from typing import Dict
 
@@ -38,10 +39,10 @@ def build_sensor() -> EnvironmentalSensor:
     # Raw register values chosen to produce human-friendly measurements
     registers = {
         REG_DEVICE_ID: EXPECTED_DEVICE_ID,
-        REG_TEMPERATURE: 26189,   # ≈25 °C
-        REG_HUMIDITY: 36010,      # ≈55 %RH
-        REG_UV_IRRADIANCE: 800,   # ≈10.17 mW/cm²
-        REG_ILLUMINANCE: 512,     # ≈533.32 lux
-        REG_PRESSURE: 1013,       # ≈1013 hPa
+        REG_TEMPERATURE: 26189,  # ≈25 °C
+        REG_HUMIDITY: 36010,  # ≈55 %RH
+        REG_UV_IRRADIANCE: 800,  # ≈10.17 mW/cm²
+        REG_ILLUMINANCE: 512,  # ≈533.32 lux
+        REG_PRESSURE: 1013,  # ≈1013 hPa
     }
     return EnvironmentalSensor(FakeTransport(registers))
