@@ -13,7 +13,6 @@ Importing these symbols directly from the package is the recommended usage:
 >>> print(sensor.read_temperature(Units.C))
 """
 
-
 from .constants import Units, UVSensor
 from .core import EnvironmentalSensor
 

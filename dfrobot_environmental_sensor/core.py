@@ -57,7 +57,9 @@ def clamp_value(x: float, lower: float, upper: float) -> float:
     return max(lower, min(upper, x))
 
 
-def map_linear(x: float, in_min: float, in_max: float, out_min: float, out_max: float) -> float:
+def map_linear(
+    x: float, in_min: float, in_max: float, out_min: float, out_max: float
+) -> float:
     """Map a value linearly from one range to another.
 
     Parameters
@@ -173,7 +175,10 @@ class EnvironmentalSensor:
     uv_sensor : UVSensor, optional
         Which UV sensor variant is mounted. Defaults to ``UVSensor.LTR390UV``.
     """
-    def __init__(self, transport: Transport, uv_sensor: UVSensor = UVSensor.LTR390UV) -> None:
+
+    def __init__(
+        self, transport: Transport, uv_sensor: UVSensor = UVSensor.LTR390UV
+    ) -> None:
         self._transport = transport
         self.uv_sensor = uv_sensor
 
@@ -253,7 +258,9 @@ class EnvironmentalSensor:
         try:
             word_bytes = self._transport.read_block(reg_address, 2)
         except Exception as e:
-            raise IOError(f"Failed to read 2 bytes at register 0x{reg_address:02X}") from e
+            raise IOError(
+                f"Failed to read 2 bytes at register 0x{reg_address:02X}"
+            ) from e
         return _bytes_to_u16_big_endian(word_bytes)
 
     # ---- API ----
@@ -350,7 +357,11 @@ class EnvironmentalSensor:
         """
         raw = self._read_u16(REG_PRESSURE)
         pressure_hpa = float(raw)
-        return round(pressure_hpa / 10.0, 2) if units == Units.KPA else round(pressure_hpa, 2)
+        return (
+            round(pressure_hpa / 10.0, 2)
+            if units == Units.KPA
+            else round(pressure_hpa, 2)
+        )
 
     def estimate_altitude(
         self, sea_level_hpa: float = STANDARD_SEA_LEVEL_PRESSURE_HPA

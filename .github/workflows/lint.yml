@@ -1,0 +1,28 @@
+name: Lint
+
+on:
+  push:
+    paths:
+      - "**.py"
+      - ".github/workflows/lint.yml"
+      - ".pre-commit-config.yaml"
+      - "pyproject.toml"
+  pull_request:
+    paths:
+      - "**.py"
+      - ".github/workflows/lint.yml"
+      - ".pre-commit-config.yaml"
+      - "pyproject.toml"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install pre-commit
+      - name: Run pre-commit
+        run: pre-commit run --all-files

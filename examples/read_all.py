@@ -8,7 +8,7 @@ using I²C transport.
 import time
 from dfrobot_environmental_sensor import EnvironmentalSensor, Units, UVSensor
 
-I2C_BUS = 1           # Raspberry Pi I²C is usually bus 1
+I2C_BUS = 1  # Raspberry Pi I²C is usually bus 1
 I2C_ADDRESS = 0x22
 UV_VARIANT = UVSensor.LTR390UV  # or UVSensor.S12DS, depending on your board
 
