@@ -32,6 +32,9 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## [2.0.0] - 2025-08-20
 
+> [!WARNING]
+> Version 2.0.0 removes Arduino and Python 2.x support; projects relying on these should remain on earlier releases.
+
 ### ✨ Added
 
 * Python 3.8+ support using `smbus3`
