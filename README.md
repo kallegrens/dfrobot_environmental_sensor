@@ -3,6 +3,7 @@
 ![PyPI](https://img.shields.io/pypi/v/dfrobot-environmental-sensor)
 ![Python Version](https://img.shields.io/pypi/pyversions/dfrobot-environmental-sensor)
 ![License](https://img.shields.io/github/license/kallegrens/dfrobot-environmental-sensor)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 Python library for the multifunctional **DFRobot Environmental Sensor (SEN0500/SEN0501)**.
 
@@ -10,17 +11,19 @@ This sensor integrates **temperature 🌡️, humidity 💧, UV index ☀️, li
 
 It supports both **Gravity** and **Breakout** interfaces and communicates over **I²C** or **UART**.
 
-👉 This is a **Python 3.8+ only** fork of the original DFRobot Arduino library, adapted for Raspberry Pi.
+> [!IMPORTANT]
+> This fork supports Python 3.8+ only; earlier versions or Arduino libraries are not supported.
 
 ---
 
 ## 📦 Installation
 
-Simply install with `pip`
-
-```bash
-pip install dfrobot-environmental-sensor
-```
+> [!TIP]
+> Use a virtual environment to avoid dependency conflicts and run:
+>
+> ```bash
+> pip install dfrobot-environmental-sensor
+> ```
 
 ## 🚀 Pythonic API usage
 
@@ -34,6 +37,9 @@ At the top level you’ll find:
 `UVSensor` → supported UV sensor variants
 
 ### 🐍 Minimal example
+
+> [!CAUTION]
+> Ensure the I²C bus is enabled and the sensor’s address matches your hardware; some boards may use a different bus or address than `0x22`.
 
 ```python
 from dfrobot_environmental_sensor import EnvironmentalSensor, Units, UVSensor
@@ -53,6 +59,9 @@ if sensor.is_present():
 else:
     print("❌ Sensor not detected.")
 ```
+
+> [!NOTE]
+> If the sensor isn’t detected, double-check wiring, power, and address configuration.
 
 ## 🛠️ Methods
 
@@ -96,6 +105,9 @@ def estimate_altitude(self, sea_level_hpa: float = 1013.25) -> float:
 The full changelog is available in [CHANGELOG.md](./CHANGELOG.md).
 
 ### Latest Release
+
+> [!WARNING]
+> Version 2.0.0 removes Arduino and Python 2.x support; projects relying on these should remain on earlier releases.
 
 - **[2.0.0 – 2025-08-20]** 💥 Python-only fork
   - ✅ Python 3.8+ support with `smbus3`
