@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dfrobot-environmental-sensor"
-version = "2.1.1"
+version = "2.1.2"
 description = "Python 3.8+ library for the DFRobot SEN0500/SEN0501 environmental sensor on Raspberry Pi."
 readme = "README.md"
 license = { file = "LICENSE" }
