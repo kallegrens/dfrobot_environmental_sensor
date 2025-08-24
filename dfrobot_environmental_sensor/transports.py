@@ -1,6 +1,13 @@
 from __future__ import annotations
 from typing import Protocol
 
+from .constants import (
+    UART_DATA_BITS,
+    UART_PARITY,
+    UART_STOP_BITS,
+    UART_TIMEOUT_S,
+)
+
 
 class Transport(Protocol):
     """Abstract communication transport for SEN050X sensors.
@@ -121,10 +128,14 @@ class UARTTransport:
         self._addr = addr
         self._master = modbus_rtu.RtuMaster(
             serial.Serial(
-                port=port, baudrate=baudrate, bytesize=8, parity="N", stopbits=1
+                port=port,
+                baudrate=baudrate,
+                bytesize=UART_DATA_BITS,
+                parity=UART_PARITY,
+                stopbits=UART_STOP_BITS,
             )
         )
-        self._master.set_timeout(1.0)
+        self._master.set_timeout(UART_TIMEOUT_S)
 
     def read_block(self, reg: int, length: int) -> bytes:
         """Read a block of data from the device over Modbus RTU.

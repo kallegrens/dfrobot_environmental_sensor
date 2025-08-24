@@ -17,6 +17,25 @@ from .constants import (
     TEMPERATURE_RANGE_C,
     RAW_SCALE_FACTOR,
     OVERSAMPLING_FACTOR,
+    CELSIUS_TO_FAHRENHEIT_SCALE,
+    CELSIUS_TO_FAHRENHEIT_OFFSET,
+    UV_10BIT_MASK,
+    ADC_REFERENCE_VOLTAGE,
+    LTR390_OUTPUT_MIN_V,
+    LTR390_OUTPUT_MAX_V,
+    LTR390_IRRADIANCE_MIN,
+    LTR390_IRRADIANCE_MAX,
+    S12DS_NANOAMP_SCALE,
+    S12DS_LOAD_RESISTANCE_OHMS,
+    S12DS_NA_PER_MW_CM2,
+    ILLUMINANCE_COEFF_A,
+    ILLUMINANCE_COEFF_B,
+    ILLUMINANCE_COEFF_C,
+    ILLUMINANCE_COEFF_D,
+    PRESSURE_TO_KPA_DIVISOR,
+    ALTITUDE_SCALING_FACTOR,
+    ALTITUDE_EXPONENT,
+    PERCENTAGE_SCALE,
 )
 from .transports import Transport, I2CTransport, UARTTransport
 
@@ -34,7 +53,10 @@ def convert_celsius_to_fahrenheit(temperature_c: float) -> float:
     float
         Equivalent temperature in degrees Fahrenheit.
     """
-    return temperature_c * 1.8 + 32.0
+    return (
+        temperature_c * CELSIUS_TO_FAHRENHEIT_SCALE
+        + CELSIUS_TO_FAHRENHEIT_OFFSET
+    )
 
 
 def clamp_value(x: float, lower: float, upper: float) -> float:
@@ -127,13 +149,17 @@ def _compute_uv_ltr390(raw: int) -> float:
     float
         UV irradiance in mW/cm² (rounded to 2 decimals).
     """
-    raw10 = raw & 0x03FF
-    output_voltage = 3.0 * raw10 / RAW_SCALE_FACTOR  # volts
-    # Clamp to [0.99, 2.99]
-    clamped_output_voltage = clamp_value(output_voltage, lower=0.99, upper=2.99)
-    # Map to [0.00, 15.00]
+    raw10 = raw & UV_10BIT_MASK
+    output_voltage = ADC_REFERENCE_VOLTAGE * raw10 / RAW_SCALE_FACTOR  # volts
+    clamped_output_voltage = clamp_value(
+        output_voltage, lower=LTR390_OUTPUT_MIN_V, upper=LTR390_OUTPUT_MAX_V
+    )
     uv_irradiance = map_linear(
-        clamped_output_voltage, in_min=0.99, in_max=2.99, out_min=0.00, out_max=15.00
+        clamped_output_voltage,
+        in_min=LTR390_OUTPUT_MIN_V,
+        in_max=LTR390_OUTPUT_MAX_V,
+        out_min=LTR390_IRRADIANCE_MIN,
+        out_max=LTR390_IRRADIANCE_MAX,
     )  # mW/cm²
     return round(uv_irradiance, 2)
 
@@ -151,9 +177,11 @@ def _compute_uv_s12ds(raw: int) -> float:
     float
         UV irradiance in mW/cm² (rounded to 2 decimals).
     """
-    output_voltage = 3.0 * raw / RAW_SCALE_FACTOR  # volts
-    photocurrent = output_voltage * 1e12 / 4_303_300  # nanoamperes
-    return round(photocurrent / 113.0, 2)
+    output_voltage = ADC_REFERENCE_VOLTAGE * raw / RAW_SCALE_FACTOR  # volts
+    photocurrent = (
+        output_voltage * S12DS_NANOAMP_SCALE / S12DS_LOAD_RESISTANCE_OHMS
+    )  # nanoamperes
+    return round(photocurrent / S12DS_NA_PER_MW_CM2, 2)
 
 
 _UV_COMPUTE_MAP = {
@@ -312,7 +340,9 @@ class EnvironmentalSensor:
             Relative humidity in percent (%RH), rounded to 2 decimals.
         """
         raw = self._read_u16(REG_HUMIDITY)
-        relative_humidity = (raw / RAW_SCALE_FACTOR) * 100.0 / OVERSAMPLING_FACTOR
+        relative_humidity = (
+            raw / RAW_SCALE_FACTOR * PERCENTAGE_SCALE / OVERSAMPLING_FACTOR
+        )
         return round(relative_humidity, 2)
 
     def read_uv_irradiance(self) -> float:
@@ -339,7 +369,14 @@ class EnvironmentalSensor:
         Uses the vendor-provided polynomial fit for ADC → lux conversion.
         """
         raw = self._read_u16(REG_ILLUMINANCE)
-        lux = raw * (1.0023 + raw * (8.1488e-5 + raw * (-9.3924e-9 + raw * 6.0135e-13)))
+        lux = raw * (
+            ILLUMINANCE_COEFF_A
+            + raw
+            * (
+                ILLUMINANCE_COEFF_B
+                + raw * (ILLUMINANCE_COEFF_C + raw * ILLUMINANCE_COEFF_D)
+            )
+        )
         return round(lux, 2)
 
     def read_pressure(self, units: Units = Units.HPA) -> float:
@@ -358,7 +395,7 @@ class EnvironmentalSensor:
         raw = self._read_u16(REG_PRESSURE)
         pressure_hpa = float(raw)
         return (
-            round(pressure_hpa / 10.0, 2)
+            round(pressure_hpa / PRESSURE_TO_KPA_DIVISOR, 2)
             if units == Units.KPA
             else round(pressure_hpa, 2)
         )
@@ -380,5 +417,7 @@ class EnvironmentalSensor:
             Estimated altitude above sea level in meters, rounded to 2 decimals.
         """
         pressure_hpa = self.read_pressure(Units.HPA)
-        altitude = 44330.0 * (1.0 - (pressure_hpa / sea_level_hpa) ** 0.1903)
+        altitude = ALTITUDE_SCALING_FACTOR * (
+            1.0 - (pressure_hpa / sea_level_hpa) ** ALTITUDE_EXPONENT
+        )
         return round(altitude, 2)
